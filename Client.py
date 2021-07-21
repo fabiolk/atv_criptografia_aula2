@@ -7,6 +7,9 @@ import threading
 import select
 import traceback
 
+from cryptography.fernet import Fernet ''' biblioteca '''
+
+key = Fernet.generate_key()''' '''
 
 class Server(threading.Thread):
     def initialise(self, receive):
@@ -22,7 +25,12 @@ class Server(threading.Thread):
                     s = item.recv(1024)
                     if s != '':
                         chunk = s
-                        print(chunk.decode() + '\n>>')
+                        
+                        f = Fernet(key) ''' '''
+                        
+                        decrypt_chunk = f.decrypt(chunk)''' '''
+                        
+                        print(decrypt_chunk.decode() + '\n>>')''' '''
                 except:
                     traceback.print_exc(file=sys.stdout)
                     break
@@ -66,9 +74,15 @@ class Client(threading.Thread):
             if msg == '':
                 continue
             # print "Sending\n"
-            msg = user_name + ': ' + msg
+            msg = user_name + ': ' + msg                    
+            
             data = msg.encode()
-            self.client(host, port, data)
+            
+            f = Fernet(key)''' '''
+            
+            encrypt_msg = f.encrypt(data)''' '''            
+            
+            self.client(host, port, encrypt_msg)''' '''
         return (1)
 
 
