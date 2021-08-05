@@ -7,10 +7,10 @@ import threading
 import select
 import traceback
 
-from cryptography.fernet import Fernet ''' biblioteca '''
-
-key = Fernet.generate_key()''' '''
-
+from cryptography.fernet import Fernet #biblioteca fonte https://cryptography.io/en/latest/fernet/#cryptography.fernet.Fernet
+key = 'jM0KRW-bDse15vXu8Nf6B0r1fgdeyJSN73eIM3sIJV8=' #variavel estatica
+#key = Fernet.generate_key() #usado para gerar a chave acima
+print(key)#
 class Server(threading.Thread):
     def initialise(self, receive):
         self.receive = receive
@@ -26,11 +26,12 @@ class Server(threading.Thread):
                     if s != '':
                         chunk = s
                         
-                        f = Fernet(key) ''' '''
+                        f = Fernet(key) #instancia f com a chave gerada
                         
-                        decrypt_chunk = f.decrypt(chunk)''' '''
+                        decrypt_chunk = f.decrypt(chunk)
+                        #Decrypts a Fernet token sendo chunk a mensagem recebida no servidor
                         
-                        print(decrypt_chunk.decode() + '\n>>')''' '''
+                        print(decrypt_chunk.decode() + '\n>>')#printa a msg descriptografada
                 except:
                     traceback.print_exc(file=sys.stdout)
                     break
@@ -78,11 +79,11 @@ class Client(threading.Thread):
             
             data = msg.encode()
             
-            f = Fernet(key)''' '''
+            f = Fernet(key)#instancia f com a chave gerada
             
-            encrypt_msg = f.encrypt(data)''' '''            
+            encrypt_msg = f.encrypt(data)#Encrypts data passed. The result of this encryption is known as a “Fernet token” and has strong privacy and authenticity guarantees.            
             
-            self.client(host, port, encrypt_msg)''' '''
+            self.client(host, port, encrypt_msg)#envia a mensagem criptografada
         return (1)
 
 
