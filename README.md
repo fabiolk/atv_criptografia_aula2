@@ -11,6 +11,7 @@
 * Python
 * Criptografia simétrica
 * Sockets 
+* Threading
 * Wireshark
 
 ## Melhorias
